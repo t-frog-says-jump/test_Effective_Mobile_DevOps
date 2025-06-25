@@ -26,9 +26,12 @@ Args:
     -f --force           Skip root check
 
 Tested in docker for distributions: 
-    Debian: version not defined
-    Redhat: version not defined
-    Arch: version not defined
+    Debian: debian:trixie-slim
+    Redhat: redhat/ubi9:9.6
+    Arch: archlinux:base-20250622.0.370030
+    
+Tested on self-hosted:
+    Ubuntu: 24.04.1
 "
 
 pretty_print() {
