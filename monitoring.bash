@@ -36,7 +36,6 @@ pretty_print() {
     local border_char="${2:-*}"
     local border_length=${#message}
     
-    echo
     printf "%${border_length}s\n" | tr ' ' "$border_char"
     echo "$message"
     printf "%${border_length}s\n" | tr ' ' "$border_char"
@@ -68,8 +67,9 @@ arg_roasting(){
     echo "Process for control     $PROCESS_NAME"
     echo "Path to the log file    $LOG_FILE"
     echo "Api address             $URL"
-    echo "Run as user             $URL"
+    echo "Run as user             $USERNAME"
     echo "Run with force          $FORCE"
+    echo
 }
 
 install_pgrep() {
