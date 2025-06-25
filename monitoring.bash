@@ -3,8 +3,9 @@
 PROCESS_NAME="test"
 LOG_FILE="/var/log/monitoring.log"
 URL="https://test.com/monitoring/test/api"
-USERNAME="simple-user"
-FORCE=true
+USERNAME="root"
+
+FORCE=false
 
 HELP="\
 Simple bash script to monitoring some process.
@@ -18,16 +19,16 @@ By default use:
     username: simple-user
 
 Args:   
-    -p --process-name  Process for control
-    -l --log-file      Path to the log file
-    -r --url           Api address
-    -u --username      Run as user
-    -f --force         Skip root check
+    -p --process-name    Process for control
+    -l --log-file        Path to the log file
+    -r --url             Api address
+    -u --username        Run as user
+    -f --force           Skip root check
 
-Supports distributions: 
-    Debian: 
-    Redhat: 
-    Arch: 
+Tested in docker for distributions: 
+    Debian: version not defined
+    Redhat: version not defined
+    Arch: version not defined
 "
 
 pretty_print() {
@@ -35,6 +36,7 @@ pretty_print() {
     local border_char="${2:-*}"
     local border_length=${#message}
     
+    echo
     printf "%${border_length}s\n" | tr ' ' "$border_char"
     echo "$message"
     printf "%${border_length}s\n" | tr ' ' "$border_char"
@@ -45,7 +47,7 @@ print_help(){
 }
 
 root_check() {
-    if [ "$FORCE" = true ] && [ "$EUID" -ne 0 ]; then
+    if [[ $FORCE == false ]] && [ "$EUID" -ne 0 ]; then
         pretty_print "Please run as root"
         exit
     fi
@@ -55,18 +57,19 @@ arg_roasting(){
     while [[ "$#" -gt 0 ]]; do
         case $1 in
             -p|--process-name) PROCESS_NAME="$2"; shift ;;
-            -l|--log-file) LOG_FILE=$2 ;;
-            -r|--url) URL=$2 ;;
-            -u|--username) USERNAME=$2 ;;
-            -f|--force) FORCE=false ;;
+            -l|--log-file) LOG_FILE="$2"; shift ;;
+            -r|--url) URL="$2"; shift ;;
+            -u|--username) USERNAME="$2"; shift ;;
+            -f|--force) FORCE=true ;;
             *) pretty_print "Unknown parameter passed: $1"; exit 1 ;;
         esac
         shift
     done
-    pretty_print "Process for control  : $PROCESS_NAME"
-    pretty_print "Path to the log file : $LOG_FILE"
-    pretty_print "Api address          : $URL"
-    pretty_print "Run as user          : $URL"
+    echo "Process for control     $PROCESS_NAME"
+    echo "Path to the log file    $LOG_FILE"
+    echo "Api address             $URL"
+    echo "Run as user             $URL"
+    echo "Run with force          $FORCE"
 }
 
 install_pgrep() {
@@ -93,7 +96,8 @@ create_user() {
 }
 
 switch_privelege(){
-    if [ "$USERNAME" = "root" ]; then
+    if [ "$USERNAME" != "root" ]; then
+        create_user
         su - "$USERNAME"
     fi
 }
@@ -110,8 +114,9 @@ process_checker() {
     fi
 }
 
-print_help
-root_check
-arg_roasting
-install_pgrep
+print_help        &&
+arg_roasting $*   &&
+root_check        &&
+install_pgrep     &&
+switch_privelege  &&
 process_checker
