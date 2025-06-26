@@ -68,13 +68,13 @@ arg_roasting(){
         esac
         shift
     done
-    echo "Launched with arguments:"
-    echo "    Process for control  $PROCESS_NAME"
-    echo "    Path to the log fil  $LOG_FILE"
-    echo "    Api address          $URL"
-    echo "    Run as user          $USERNAME"
-    echo "    Run with force       $FORCE"
-    echo
+    echo "Launched with arguments:
+    Process for control  $PROCESS_NAME
+    Path to the log fil  $LOG_FILE
+    Api address          $URL
+    Run as user          $USERNAME
+    Run with force       $FORCE
+    "
 }
 
 install_pgrep() {
