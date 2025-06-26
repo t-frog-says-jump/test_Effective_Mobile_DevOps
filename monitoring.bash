@@ -1,4 +1,5 @@
 #!/bin/bash
+set -Eeuo pipefail
 
 PROCESS_NAME="test"
 LOG_FILE="/var/log/monitoring.log"
@@ -29,7 +30,7 @@ Tested in docker for distributions:
     Debian: debian:trixie-slim
     Redhat: redhat/ubi9:9.6
     Arch: archlinux:base-20250622.0.370030
-    
+
 Tested on self-hosted:
     Ubuntu: 24.04.1
 "
