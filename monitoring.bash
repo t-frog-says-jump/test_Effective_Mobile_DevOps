@@ -17,7 +17,7 @@ By default use:
     process-name         test
     log-file             /var/log/monitoring.log
     url                  https://test.com/monitoring/test/api
-    username             simple-user
+    username             root
 
 Args:   
     -p --process-name    Process for control
