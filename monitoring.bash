@@ -14,10 +14,10 @@ Expects that the su, useradd, id, echo, printf
 commands are available in the system.
 
 By default use: 
-    process-name: test
-    log-file: /var/log/monitoring.log
-    url: https://test.com/monitoring/test/api
-    username: simple-user
+    process-name         test
+    log-file             /var/log/monitoring.log
+    url                  https://test.com/monitoring/test/api
+    username             simple-user
 
 Args:   
     -p --process-name    Process for control
@@ -27,12 +27,12 @@ Args:
     -f --force           Skip root check
 
 Tested in docker for distributions: 
-    Debian: debian:trixie-slim
-    Redhat: redhat/ubi9:9.6
-    Arch: archlinux:base-20250622.0.370030
+    Debian               debian:trixie-slim
+    Redhat               redhat/ubi9:9.6
+    Arch                 archlinux:base-20250622.0.370030
 
 Tested on self-hosted:
-    Ubuntu: 24.04.1
+    Ubuntu               24.04.1
 "
 
 pretty_print() {
@@ -68,11 +68,12 @@ arg_roasting(){
         esac
         shift
     done
-    echo "Process for control     $PROCESS_NAME"
-    echo "Path to the log file    $LOG_FILE"
-    echo "Api address             $URL"
-    echo "Run as user             $USERNAME"
-    echo "Run with force          $FORCE"
+    echo "Launched with arguments:"
+    echo "    Process for control  $PROCESS_NAME"
+    echo "    Path to the log fil  $LOG_FILE"
+    echo "    Api address          $URL"
+    echo "    Run as user          $USERNAME"
+    echo "    Run with force       $FORCE"
     echo
 }
 
