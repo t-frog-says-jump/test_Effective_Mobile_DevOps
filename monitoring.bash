@@ -10,8 +10,8 @@ FORCE=false
 
 HELP="\
 Simple bash script to monitoring some process.
-Expects that the su, useradd, id, echo, printf
-commands are available in the system.
+Expects that the su, useradd, id, echo, printf,
+sudo commands are available in the system.
 
 By default use: 
     process-name         test
